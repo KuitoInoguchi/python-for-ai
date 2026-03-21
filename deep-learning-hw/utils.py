@@ -64,14 +64,17 @@ def generate_training_data(n_samples=100):
 
     return X, D
 
-def get_preset_training_data():
+def get_preset_training_data(id=1):
     X = np.array([
         [0, 0, 1],
         [0, 1, 1],
         [1, 0, 1],
         [1, 1, 1]
     ])
-    D = np.array([0, 0, 1, 1])
+    if id == 1:
+        D = np.array([0, 0, 1, 1])
+    elif id == 2:
+        D = np.array([0, 1, 1, 0])
     return X, D
 
 def print_predictions(W, X, D, title="Predictions"):
