@@ -1,8 +1,8 @@
+# This module for data visualization is AI-generated
+
 import numpy as np
 import utils
-import sys
 import matplotlib.pyplot as plt
-
 
 def compute_error(W, X, D):
     """计算误差，即四个实际输出与期望输出之差的平方和"""
