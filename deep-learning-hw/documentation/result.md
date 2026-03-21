@@ -29,6 +29,8 @@ input: [1 1 1] -> output: 0.9507 (desired: 1)
 ```
 ## 练习2结果记录
 ![error_vs_epochs.png](../assets/error_vs_epochs.png)
+观察上图发现，SGD方法初始误差介于批量与小批量之间，但收敛速度最快；小批量方法
+收敛速度介于批量与SGD之间；大批量算法初始误差最大，收敛速度也最慢。
 
 ## 练习3结果记录
 

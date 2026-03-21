@@ -22,6 +22,7 @@ def main():
     
     # 随机权重初始化
     rg = np.random.default_rng(0)
+    initial_W = 2 * rg.random((1, 3)) - 1
     
     # 训练方法列表
     methods = ["sgd", "batch", "small_batch"]
@@ -33,9 +34,9 @@ def main():
     
     for method in methods:
         print(f"Training with {method.upper()}...")
-        
-        # 重新初始化权重
-        W = 2 * rg.random((1, 3)) - 1
+
+        W = initial_W.copy()
+        print(f"Initial weights for {method}: {W}")
         
         # 存储每轮的误差
         errors = []
