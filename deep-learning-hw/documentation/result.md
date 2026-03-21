@@ -3,8 +3,8 @@
 - 初始权重：创建一个numpy.random.default_rng实例，设置随机数种子为0并生成一个1x3的随机矩阵作为初始权重。
 - 学习率：设置为0.3。
 - 训练轮数：SGD为1000轮，Batch SGD为4000轮，Mini-Batch SGD为2000轮。
-
-```
+- 使用代码：`src/sgd.py`，`src/batch.py`，`src/mini_batch.py`。
+``` 
 After training with SGD method:
 Weights: [[ 5.93085677 -0.23594559 -2.73439359]]
 input: [0 0 1] -> output: 0.0610 (desired: 0)
@@ -28,11 +28,12 @@ input: [1 0 1] -> output: 0.9607 (desired: 1)
 input: [1 1 1] -> output: 0.9507 (desired: 1)
 ```
 ## 练习2结果记录
+- 使用代码：`src/train.py`
 ![error_vs_epochs.png](../assets/error_vs_epochs.png)
-观察上图发现，SGD方法初始误差介于批量与小批量之间，但收敛速度最快；小批量方法
-收敛速度介于批量与SGD之间；大批量算法初始误差最大，收敛速度也最慢。
+观察上图发现，SGD方法收敛最快，Batch SGD方法收敛最慢，Mini-Batch SGD方法收敛速度介于两者之间。
 
 ## 练习3结果记录
+- 使用代码：`src/sgd.py`（该源码中的epochs和alpha两个参数被多次手动修改）
 
 ### 第一组尝试：
 - 轮数：4000轮

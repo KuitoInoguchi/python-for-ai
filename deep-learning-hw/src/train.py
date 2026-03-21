@@ -16,7 +16,7 @@ def compute_error(W, X, D):
 
 
 def main():
-    """主入口函数，支持三种训练方法：sgd、batch、small_batch"""
+    """主入口函数，支持三种训练方法：sgd、batch、mini_batch"""
     # 训练数据
     X, D = utils.get_preset_training_data()
     
@@ -25,7 +25,7 @@ def main():
     initial_W = 2 * rg.random((1, 3)) - 1
     
     # 训练方法列表
-    methods = ["sgd", "batch", "small_batch"]
+    methods = ["sgd", "batch", "mini_batch"]
     epochs = 1000
     alpha = 0.3
     
@@ -47,7 +47,7 @@ def main():
                 utils.sgd(W, X, D, alpha)
             elif method == "batch":
                 utils.batch_sgd(W, X, D, alpha)
-            elif method == "small_batch":
+            elif method == "mini_batch":
                 utils.mini_batch_sgd(W, X, D, alpha)
             
             # 计算当前轮的误差
