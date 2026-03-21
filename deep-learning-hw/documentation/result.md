@@ -28,7 +28,7 @@ input: [1 0 1] -> output: 0.9607 (desired: 1)
 input: [1 1 1] -> output: 0.9507 (desired: 1)
 ```
 ## 练习2结果记录
-![error_vs_epochs.png](error_vs_epochs.png)
+![error_vs_epochs.png](../assets/error_vs_epochs.png)
 
 ## 练习3结果记录
 
