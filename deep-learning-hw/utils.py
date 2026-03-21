@@ -75,6 +75,8 @@ def get_preset_training_data(id=1):
         D = np.array([0, 0, 1, 1])
     elif id == 2:
         D = np.array([0, 1, 1, 0])
+    else:
+        raise ValueError("Invalid id. Please choose 1 or 2.")
     return X, D
 
 def print_predictions(W, X, D, title="Predictions"):
