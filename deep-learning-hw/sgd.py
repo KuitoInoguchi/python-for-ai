@@ -17,4 +17,4 @@ for epoch in range(epochs):
     utils.sgd(W, X, D, alpha)
 
 # result
-utils.print_predictions(W, X, D, "After training")
+utils.print_predictions(W, X, D, "After training with SGD method")

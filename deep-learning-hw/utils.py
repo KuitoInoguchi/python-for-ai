@@ -34,7 +34,7 @@ def batch_sgd(W, X, D, alpha):
         avg_dW += dW / len(X)
     W += avg_dW
 
-def small_batch_sgd(W, X, D, alpha, batch_size=2):
+def mini_batch_sgd(W, X, D, alpha, batch_size=2):
     # extract current batch
     for i in range(0, len(X), batch_size):
         batch_X = X[i:i + batch_size, :]

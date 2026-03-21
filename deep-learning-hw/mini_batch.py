@@ -14,7 +14,7 @@ alpha = 0.3
 
 # training
 for epoch in range(epochs):
-    utils.small_batch_sgd(W, X, D, alpha)
+    utils.mini_batch_sgd(W, X, D, alpha)
 
 # result
-utils.print_predictions(W, X, D, "After training")
+utils.print_predictions(W, X, D, "After training with Mini-Batch SGD method")
