@@ -2,9 +2,9 @@ import numpy as np
 import utils
 
 # hyperparams
-epochs = 400
+epochs = 475
 alpha = 0.9
-hidden_nodes = 4
+hidden_nodes = 3
 beta = 0.9
 
 # training data
