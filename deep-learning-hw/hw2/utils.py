@@ -4,20 +4,11 @@ def sigmoid(x):
     """activation function"""
     return 1 / (1 + np.exp(-x))
 
-def sigmoid_derivative(y):
+def sigmoid_derivative(r_sigmoid):
     """
-    sigmoid函数的导数
-    
-    参数:
-        y: sigmoid函数的输出值，即 y = sigmoid(x)，范围在(0,1)之间
-           注意：必须传入激活后的输出y，而非激活前的输入x
-           错误用法: sigmoid_derivative(W @ x)  # 会导致数值溢出
-           正确用法: sigmoid_derivative(sigmoid(W @ x))
-    
-    数学原理: d/dx[sigmoid(x)] = sigmoid(x) * (1 - sigmoid(x))
-    因为 y = sigmoid(x)，所以导数 = y * (1 - y)
+    derivative of sigmoid function, but, pass me the result of sigmoid!
     """
-    return y * (1 - y)
+    return r_sigmoid * (1 - r_sigmoid)
 
 def _compute_weight_increment(W, x, d, alpha):
     v = W @ x.T
@@ -62,8 +53,11 @@ def mini_batch_sgd(W, X, D, alpha, batch_size=2):
         batch_dW /= len(batch_X)
         W += batch_dW
 
-def back_prop_xor(W1, W2, X, D, alpha):
+def back_prop_xor(W1, W2, X, D, alpha, beta=0.0):
     """Backpropagation function for XOR gate"""
+    mmt1 = np.zeros_like(W1)
+    mmt2 = np.zeros_like(W2)
+
     for i in range(len(X)):
         x = X[i:i + 1, :].T  # select one row of input
         d = D[i]  # select the corresponding correct output
@@ -86,9 +80,12 @@ def back_prop_xor(W1, W2, X, D, alpha):
 
         # weight update
         dW1 = alpha * delta1 @ x.T
-        W1 += dW1
+        mmt1 = dW1 + beta * mmt1
+        W1 += mmt1
+
         dW2 = alpha * delta @ y1.T
-        W2 += dW2
+        mmt2 = dW2 + beta * mmt2
+        W2 += mmt2
 
 
 def generate_training_data(n_samples=100):
