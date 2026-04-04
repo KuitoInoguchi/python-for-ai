@@ -11,8 +11,10 @@ def sigmoid_derivative(r_sigmoid):
     return r_sigmoid * (1 - r_sigmoid)
 
 def softmax(X):
-    """softmax function"""
-    return np.exp(X) / np.sum(np.exp(X), axis=0, keepdims=True)
+    """softmax function with numerical stability"""
+    max_val = np.max(X)
+    exp_X = np.exp(X - max_val)
+    return exp_X / np.sum(exp_X, axis=0, keepdims=True)
 
 def softmax_derivative(r_softmax):
     """derivative of softmax function"""
