@@ -3,7 +3,7 @@ import numpy as np
 import functions as fun
 
 # hyperparameters
-epochs = 10000
+epochs = 1000
 nodes = 50
 alpha = 0.9
 

@@ -33,7 +33,7 @@ def get_training_data():
                   [0, 0, 0, 0, 1],
                   [1, 1, 1, 1, 0]]
 
-    D = np.array([1, 2, 3, 4, 5]).T
+    D = np.eye(5)[np.array([1, 2, 3, 4, 5]) - 1]
 
     return X, D
 def get_test_data():
