@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>5x5 像素矩阵编辑器 (修正版)</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h2 {
+            color: #333;
+        }
+        /* 矩阵网格布局 */
+        #grid {
+            display: grid;
+            grid-template-columns: repeat(5, 50px);
+            grid-template-rows: repeat(5, 50px);
+            gap: 3px;
+            background-color: #aaa;
+            border: 2px solid #555;
+            padding: 3px;
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        /* 格子基础样式 */
+        .cell {
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            transition: background-color 0.15s;
+            border-radius: 2px;
+        }
+        
+        /* * 逻辑修改点：
+         * 1 -> 黑色 (class="black")
+         * 0 -> 白色 (class="white")
+         */
+        .white { 
+            background-color: #fff; 
+            border: 1px solid #ddd; /* 给白色加个淡边框，方便在白色背景下区分 */
+            box-sizing: border-box;
+        }
+        .black { 
+            background-color: #000; 
+        }
+        
+        .controls {
+            margin-top: 25px;
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .instructions {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: -5px;
+        }
+        textarea {
+            width: 100%;
+            height: 120px;
+            font-family: 'Courier New', monospace; /* 使用等宽字体，方便对齐 */
+            font-size: 16px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* 确保 padding 不会撑破宽度 */
+            resize: none; /* 禁止手动拉伸 */
+        }
+        button {
+            padding: 12px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: background-color 0.2s;
+        }
+        button:hover { background-color: #0056b3; }
+        button:active { background-color: #004494; }
+    </style>
+</head>
+<body>
+
+    <h2>5x5 像素矩阵编辑器</h2>
+    <div id="grid"></div>
+
+    <div class="controls">
+        <p class="instructions">在下方粘贴 5x5 的 0/1 文本 (1:黑, 0:白)</p>
+        <textarea id="textInput" placeholder="例如：
+0 1 1 1 1
+0 1 0 0 0
+..."></textarea>
+        <button onclick="applyText()">更新矩阵显示</button>
+    </div>
+
+    <script>
+        const gridElement = document.getElementById('grid');
+        const textInput = document.getElementById('textInput');
+        const size = 5;
+        
+        // 1. 初始化内部状态
+        // 为了让初始界面看起来是“空白”的（全白），我们将状态初始化为全 0。
+        let matrix = Array(size * size).fill(0);
+
+        // 2. 初始化渲染网格 DOM
+        function initGrid() {
+            gridElement.innerHTML = ''; // 清空
+            for (let i = 0; i < size * size; i++) {
+                const cell = document.createElement('div');
+                cell.classList.add('cell');
+                // 绑定点击事件，用于手动切换颜色
+                cell.onclick = () => toggleCell(i);
+                gridElement.appendChild(cell);
+            }
+            render(); // 执行第一次渲染
+        }
+
+        // 3. 点击切换单个格子状态 (逻辑核心)
+        function toggleCell(index) {
+            // 如果是 1 (黑) 变 0 (白)；如果是 0 (白) 变 1 (黑)
+            matrix[index] = matrix[index] === 1 ? 0 : 1;
+            render(); // 状态改变后，重新渲染视图
+        }
+
+        // 4. 将 matrix 状态渲染到 UI 上 (修正逻辑点)
+        function render() {
+            const cells = gridElement.querySelectorAll('.cell');
+            cells.forEach((cell, i) => {
+                // 清除之前的颜色 class
+                cell.classList.remove('white', 'black');
+                
+                // 核心逻辑修改：
+                // 1 为黑色，0 为白色
+                if (matrix[i] === 1) {
+                    cell.classList.add('black');
+                } else {
+                    cell.classList.add('white');
+                }
+            });
+        }
+
+        // 5. 处理文本输入解析的逻辑 (修正逻辑点)
+        function applyText() {
+            const rawText = textInput.value.trim();
+            // 使用正则表达式提取所有数字 0 或 1
+            const numbers = rawText.match(/[01]/g);
+
+            if (!numbers || numbers.length !== 25) {
+                alert("❌ 输入错误！\n请提供包含恰好 25 个有效数字（0 或 1）的文本。");
+                return;
+            }
+
+            // 将提取出的字符串数组转换为数字数组
+            matrix = numbers.map(Number);
+            // 重新渲染
+            render();
+        }
+
+        // 启动小程序
+        initGrid();
+    </script>
+</body>
+</html>

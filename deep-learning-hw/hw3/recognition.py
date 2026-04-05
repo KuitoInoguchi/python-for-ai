@@ -18,4 +18,5 @@ W2 = 2 * rg.random((5, nodes)) - 1
 for epoch in range(epochs):
     fun.multi_class(W1, W2, X, D, alpha)
 
+X = data.get_test_data(3)
 fun.results(W1, W2, X)
