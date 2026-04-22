@@ -20,7 +20,9 @@ W3 = 2 * rg.random((nodes_3, nodes_2)) - 1
 W4 = 2 * rg.random((5, nodes_3)) - 1
 
 for epoch in range(epochs):
-    fun.deep_relu(X, D, W1, W2, W3, W4, alpha)
+    # fun.deep_relu(X, D, W1, W2, W3, W4, alpha)
+    fun.deep_dropout(X, D, W1, W2, W3, W4, alpha)
+
 
 X_test = data.get_test_data(3)
-fun.results(W1, W2, W3, W4, X_test)
+fun.results(W1, W2, W3, W4, X)
